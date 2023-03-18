@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">FAF Calculator</string>
+
+    <string name="paragon">250200</string>
+    <string name="salvation">202500</string>
+    <string name="emissary">73200</string>
+    <string name="czar">45500</string>
+    <string name="galacticcolossus">27500</string>
+    <string name="trmpest">22000</string>
+
+    <string name="mavor">224775</string>
+    <string name="duke">72000</string>
+    <string name="novaxcenter">36000</string>
+    <string name="fatboy">28000</string>
+    <string name="atlantis">12000</string>
+
+    <string name="scathis">220000</string>
+    <string name="disruptor">69600</string>
+    <string name="megalith">37500</string>
+    <string name="soulripper">34000</string>
+    <string name="monkeylord">20000</string>
+
+    <string name="yolonaoss">187650</string>
+    <string name="hovatham">78000</string>
+    <string name="ahwassa">48000</string>
+    <string name="ythotha">26500</string>
+
+    <string name="income">INCOME</string>
+    <string name="how_much_mass">How much mass?</string>
+    <string name="result">RESULT</string>
+    <string name="exp">EXP</string>
+    <string name="mass">MASS</string>
+    <string name="sacu">SACU</string>
+    <string name="time">TIME</string>
+
 </resources>
