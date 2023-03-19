@@ -22,7 +22,9 @@ class RoomModule {
             context,
             AppDatabase::class.java,
             "FAF_Calculator-DB"
-        ).build()
+        )
+            .createFromAsset("init_db.db")
+            .build()
 
     @Provides
     @Singleton

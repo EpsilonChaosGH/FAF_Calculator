@@ -10,12 +10,18 @@ android {
 
     defaultConfig {
         applicationId "com.example.fafcalculator"
-        minSdk 23
+        minSdk 26
         targetSdk 32
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -62,4 +68,8 @@ dependencies {
     //ViewBindDelegate
     api "com.github.kirich1409:viewbindingpropertydelegate:$viewbinding_delegate"
     api "com.github.kirich1409:viewbindingpropertydelegate-noreflection:$viewbinding_delegate_noreflection"
+}
+
+kapt {
+    correctErrorTypes true
 }
