@@ -3,7 +3,7 @@ package com.example.fafcalculator.app.di
 import android.content.Context
 import androidx.room.Room
 import com.example.fafcalculator.core_db.AppDatabase
-import com.example.fafcalculator.core_db.dao.ParamsDao
+import com.example.fafcalculator.core_db.dao.ConfigDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,5 +28,5 @@ class RoomModule {
 
     @Provides
     @Singleton
-    fun paramsDao(db: AppDatabase): ParamsDao = db.paramsDao()
+    fun paramsDao(db: AppDatabase): ConfigDao = db.configDao()
 }
