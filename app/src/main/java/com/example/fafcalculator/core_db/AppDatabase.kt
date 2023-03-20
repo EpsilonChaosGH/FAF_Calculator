@@ -2,15 +2,15 @@ package com.example.fafcalculator.core_db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.fafcalculator.core_db.dao.ParamsDao
-import com.example.fafcalculator.core_db.entity.ParamsDbEntity
+import com.example.fafcalculator.core_db.dao.ConfigDao
+import com.example.fafcalculator.core_db.entity.ConfigDbEntity
 
 @Database(
     entities = [
-        ParamsDbEntity::class
+        ConfigDbEntity::class
     ], version = 1
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun paramsDao(): ParamsDao
+    abstract fun configDao(): ConfigDao
 }

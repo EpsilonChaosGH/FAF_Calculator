@@ -1,6 +1,9 @@
 package com.example.fafcalculator.app.screens.main
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -8,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.fafcalculator.R
+import com.example.fafcalculator.app.model.Exp
+import com.example.fafcalculator.app.model.Params
 import com.example.fafcalculator.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,11 +38,38 @@ class MainFragment() : Fragment(R.layout.fragment_main) {
             recyclerViewResult.adapter
         }
         observeState()
+        binding.editTextMassCost.addTextChangedListener(textWatcher)
+        binding.editTextMassIncome.addTextChangedListener(textWatcher)
     }
 
-    private fun observeState(){
-        viewModel.state.observe(viewLifecycleOwner){ state ->
-            adapter.resultList = state
+    private val textWatcher = object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {}
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            if (binding.editTextMassIncome.text.isNotEmpty() && binding.editTextMassCost.text.isNotEmpty()) {
+                if (binding.editTextMassIncome.text.toString()
+                        .toInt() > 0 && binding.editTextMassCost.text.toString().toInt() > 0
+                )
+                    viewModel.saveCurrentParams(
+                        Params(
+                            massCost = binding.editTextMassCost.text.toString().toInt(),
+                            massIncome = binding.editTextMassIncome.text.toString().toInt()
+                        )
+                    )
+            }
+        }
+    }
+
+    private fun observeState() {
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            adapter.resultList = state.resultList
+            binding.imageViewMenu.setImageResource(Exp.findImageByCoast(state.config.massCost))
+            if (binding.editTextMassIncome.text.toString() != state.config.massIncome.toString()
+                && binding.editTextMassCost.text.toString() != state.config.massCost.toString()
+            ) {
+                binding.editTextMassCost.setText(state.config.massCost.toString())
+                binding.editTextMassIncome.setText(state.config.massIncome.toString())
+            }
         }
     }
 

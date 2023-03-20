@@ -1,29 +1,63 @@
 <resources>
     <string name="app_name">FAF Calculator</string>
 
-    <string name="paragon">250200</string>
-    <string name="salvation">202500</string>
-    <string name="emissary">73200</string>
-    <string name="czar">45500</string>
-    <string name="galacticcolossus">27500</string>
-    <string name="trmpest">22000</string>
+    <string name="paragon_coast">250200</string>
+    <string name="salvation_coast">202500</string>
+    <string name="emissary_coast">73200</string>
+    <string name="czar_coast">45500</string>
+    <string name="colossus_coast">27500</string>
+    <string name="tempest_coast">22000</string>
 
-    <string name="mavor">224775</string>
-    <string name="duke">72000</string>
-    <string name="novaxcenter">36000</string>
-    <string name="fatboy">28000</string>
-    <string name="atlantis">12000</string>
+    <string name="mavor_coast">224775</string>
+    <string name="duke_coast">72000</string>
+    <string name="novax_coast">36000</string>
+    <string name="fatboy_coast">28000</string>
+    <string name="atlantis_coast">12000</string>
 
-    <string name="scathis">220000</string>
-    <string name="disruptor">69600</string>
-    <string name="megalith">37500</string>
-    <string name="soulripper">34000</string>
-    <string name="monkeylord">20000</string>
+    <string name="scathis_coast">220000</string>
+    <string name="disruptor_coast">69600</string>
+    <string name="megalith_coast">37500</string>
+    <string name="soulripper_coast">34000</string>
+    <string name="monkeylord_coast">20000</string>
 
-    <string name="yolonaoss">187650</string>
-    <string name="hovatham">78000</string>
-    <string name="ahwassa">48000</string>
-    <string name="ythotha">26500</string>
+    <string name="yolonaoss_coast">187650</string>
+    <string name="hovatham_coast">78000</string>
+    <string name="ahwassa_coast">48000</string>
+    <string name="ythotha_coast">26500</string>
+
+    <string name="unknown_coast">0</string>
+    <string name="unknown">unknown</string>
+
+    <string name="paragon">Paragon</string>
+    <string name="salvation">Salvation</string>
+    <string name="emissary">Emissary</string>
+    <string name="czar">Czar</string>
+    <string name="colossus">Colossus</string>
+    <string name="tempest">Tempest</string>
+
+    <string name="mavor">Mavor</string>
+    <string name="duke">Duke</string>
+    <string name="novax">Novax</string>
+    <string name="fatboy">Fatboy</string>
+    <string name="atlantis">Atlantis</string>
+
+    <string name="scathis">Scathis</string>
+    <string name="disruptor">Disruptor</string>
+    <string name="megalith">Megalith</string>
+    <string name="soulripper">Soulripper</string>
+    <string name="monkeylord">Monkeylord</string>
+
+    <string name="yolonaoss">Yolonaoss</string>
+    <string name="hovatham">Hovatham</string>
+    <string name="ahwassa">Ahwassa</string>
+    <string name="ythotha">Ythotha</string>
+
+    <string name="aeon">aeon</string>
+    <string name="uef">uef</string>
+    <string name="cybran">cybran</string>
+    <string name="seraphim">seraphim</string>
+    <string name="unknown_faction">unknown</string>
+
 
     <string name="income">INCOME</string>
     <string name="how_much_mass">How much mass?</string>

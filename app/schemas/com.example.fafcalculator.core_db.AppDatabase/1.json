@@ -2,15 +2,15 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "93ba9f37f06c93f493822dd71729f1bc",
+    "identityHash": "eb608cdeb1cc15cf2637bc54396c6e1c",
     "entities": [
       {
-        "tableName": "params",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key_params` TEXT NOT NULL, `mass_cost` INTEGER NOT NULL, `mass_income` INTEGER NOT NULL, PRIMARY KEY(`key_params`))",
+        "tableName": "config",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key_config` TEXT NOT NULL, `mass_cost` INTEGER NOT NULL, `mass_income` INTEGER NOT NULL, `sacu_income` INTEGER NOT NULL, `sacu_cost` INTEGER NOT NULL, `sec_max` INTEGER NOT NULL, PRIMARY KEY(`key_config`))",
         "fields": [
           {
-            "fieldPath": "keyParams",
-            "columnName": "key_params",
+            "fieldPath": "keyConfig",
+            "columnName": "key_config",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -25,11 +25,29 @@
             "columnName": "mass_income",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "sacuIncome",
+            "columnName": "sacu_income",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sacuCost",
+            "columnName": "sacu_cost",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "secMax",
+            "columnName": "sec_max",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "key_params"
+            "key_config"
           ],
           "autoGenerate": false
         },
@@ -40,7 +58,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '93ba9f37f06c93f493822dd71729f1bc')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'eb608cdeb1cc15cf2637bc54396c6e1c')"
     ]
   }
 }
