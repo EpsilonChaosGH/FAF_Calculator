@@ -11,7 +11,10 @@ import kotlinx.coroutines.flow.Flow
 interface ConfigDao {
 
     @Query("SELECT * FROM config WHERE key_config = :keyParams")
-    fun getParamsFlow(keyParams: String): Flow<ConfigDbEntity>
+    fun getConfigFlow(keyParams: String): Flow<ConfigDbEntity>
+
+    @Query("SELECT * FROM config WHERE key_config = :keyParams")
+    fun getConfig(keyParams: String): ConfigDbEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertConfig(config: ConfigDbEntity)

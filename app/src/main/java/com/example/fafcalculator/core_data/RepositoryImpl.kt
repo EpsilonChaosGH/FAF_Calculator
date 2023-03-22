@@ -16,8 +16,9 @@ class RepositoryImpl @Inject constructor(
     private val appDatabase: AppDatabase,
 ) : Repository {
     override suspend fun listenCurrentResult(): Flow<MainState> {
-        return appDatabase.configDao().getParamsFlow(Const.KEY_CONFIG).map {
-            getResult(it.toConfig())
+        return appDatabase.configDao().getConfigFlow(Const.KEY_CONFIG).map {
+            val config = it.toConfig()
+            MainState(resultList = getResult(config), config = config)
         }
     }
 
@@ -40,19 +41,21 @@ class RepositoryImpl @Inject constructor(
         )
     }
 
-    private fun getResult(config: Config): MainState {
+    private fun getResult(config: Config): List<Result> {
 
         val resultList: MutableList<Result> = ArrayList()
+        val massCost = config.massCost
+        var massIncome = config.massIncome
         var massCurrent = 0
         var sec = 0.0f
+        val secMax = config.secMax
         var sacu = 0
+        val sacuCost = config.sacuCost //6450-5320
+        val sacuIncome = config.sacuIncome
         var bestResult = 0
-//        val secMax = 600.0f
-//        val sacuCost = 6450  //5320
-//        val sacuIncome = 11
 
         fun toMinutes(): Float {
-            return ((((sec + (config.massCost / config.massIncome)) / 60.0f)) * 100.0f).roundToInt() / 100.0f
+            return ((((sec + (massCost / massIncome)) / 60.0f)) * 100.0f).roundToInt() / 100.0f
         }
 
         var best = toMinutes()
@@ -65,23 +68,21 @@ class RepositoryImpl @Inject constructor(
             }
         }
 
-        resultAll(0, config.massIncome)
+        resultAll(0, massIncome)
 
-        while (sec < config.secMax) {
-            massCurrent += config.massIncome
+        while (sec < secMax) {
+            massCurrent += massIncome
             sec++
-            if (massCurrent >= config.sacuCost) {
+            if (massCurrent >= sacuCost) {
                 sacu++
-                config.massIncome += config.sacuIncome
-                massCurrent -= config.sacuCost
-                resultAll(sacu, config.massIncome)
+                massIncome += sacuIncome
+                massCurrent -= sacuCost
+                resultAll(sacu, massIncome)
             }
         }
 
         resultList[bestResult].best = true
-        return MainState(
-            resultList = resultList,
-            config = config
-        )
+        return resultList
+
     }
 }

@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fafcalculator.app.model.MainState
 import com.example.fafcalculator.app.model.Params
-import com.example.fafcalculator.app.model.Result
 import com.example.fafcalculator.core_data.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -37,6 +36,4 @@ class MainViewModel @Inject constructor(
             repository.setCurrentParams(params)
         }
     }
-
-
 }
