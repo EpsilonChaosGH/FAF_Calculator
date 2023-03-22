@@ -1,7 +1,6 @@
 package com.example.fafcalculator.app.screens.exp
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
@@ -25,7 +24,6 @@ class ExpFragment : Fragment(R.layout.fragment_exp) {
     private val adapter by lazy {
         ExpAdapter(object : Listener {
             override fun onClick(exp: ExpEntity) {
-                Log.e("aaa",getString(exp.coastResId).toInt().toString())
                 viewModel.setCost(getString(exp.coastResId).toInt())
                 findNavController().popBackStack()
             }
