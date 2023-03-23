@@ -5,6 +5,7 @@ import com.example.fafcalculator.core_data.mappers.toConfig
 import com.example.fafcalculator.core_db.AppDatabase
 import com.example.fafcalculator.core_db.entity.UpdateCostTuple
 import com.example.fafcalculator.core_db.entity.UpdateParamsTuple
+import com.example.fafcalculator.core_db.entity.UpdateSettingsTuple
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -30,6 +31,15 @@ class RepositoryImpl @Inject constructor(
                 massIncome = params.massIncome
             )
         )
+    }
+
+    override suspend fun setCurrentSettings(settings: Settings) {
+        appDatabase.configDao().updateSettings(UpdateSettingsTuple(
+            keyConfig = Const.KEY_CONFIG,
+            sacuIncome = settings.sacuIncome,
+            sacuCost = settings.sacuCost,
+            secMax = settings.secMax
+        ))
     }
 
     override suspend fun setCost(cost: Int) {

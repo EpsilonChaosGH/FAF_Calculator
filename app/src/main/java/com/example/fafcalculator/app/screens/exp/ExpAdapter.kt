@@ -53,7 +53,7 @@ class ExpAdapter(
             im.setImageResource(exp.iconResId)
             tvTitle.setBackgroundResource(exp.factionResId)
             tvTitle.setText(exp.titleResId)
-            tvMass.setText(exp.coastResId)
+            tvMass.setText(exp.costResId)
         }
 
     }
