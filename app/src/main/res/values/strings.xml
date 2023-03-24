@@ -1,32 +1,31 @@
 <resources>
     <string name="app_name">FAF Calculator</string>
 
-    <string name="paragon_coast">250200</string>
-    <string name="salvation_coast">202500</string>
-    <string name="emissary_coast">73200</string>
-    <string name="czar_coast">45500</string>
-    <string name="colossus_coast">27500</string>
-    <string name="tempest_coast">22000</string>
+    <string name="settings">Settings</string>
 
-    <string name="mavor_coast">224775</string>
-    <string name="duke_coast">72000</string>
-    <string name="novax_coast">36000</string>
-    <string name="fatboy_coast">28000</string>
-    <string name="atlantis_coast">12000</string>
+    <string name="paragon_cost">250200</string>
+    <string name="salvation_cost">202500</string>
+    <string name="emissary_cost">73200</string>
+    <string name="czar_cost">45500</string>
+    <string name="colossus_cost">27500</string>
+    <string name="tempest_cost">22000</string>
 
-    <string name="scathis_coast">220000</string>
-    <string name="disruptor_coast">69600</string>
-    <string name="megalith_coast">37500</string>
-    <string name="soulripper_coast">34000</string>
-    <string name="monkeylord_coast">20000</string>
+    <string name="mavor_cost">224775</string>
+    <string name="duke_cost">72000</string>
+    <string name="novax_cost">36000</string>
+    <string name="fatboy_cost">28000</string>
+    <string name="atlantis_cost">12000</string>
 
-    <string name="yolonaoss_coast">187650</string>
-    <string name="hovatham_coast">78000</string>
-    <string name="ahwassa_coast">48000</string>
-    <string name="ythotha_coast">26500</string>
+    <string name="scathis_cost">220000</string>
+    <string name="disruptor_cost">69600</string>
+    <string name="megalith_cost">37500</string>
+    <string name="soulripper_cost">34000</string>
+    <string name="monkeylord_cost">20000</string>
 
-    <string name="unknown_coast">0</string>
-    <string name="unknown">unknown</string>
+    <string name="yolonaoss_cost">187650</string>
+    <string name="hovatham_cost">78000</string>
+    <string name="ahwassa_cost">48000</string>
+    <string name="ythotha_cost">26500</string>
 
     <string name="paragon">Paragon</string>
     <string name="salvation">Salvation</string>

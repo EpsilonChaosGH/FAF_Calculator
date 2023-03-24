@@ -24,7 +24,7 @@ class ExpFragment : Fragment(R.layout.fragment_exp) {
     private val adapter by lazy {
         ExpAdapter(object : Listener {
             override fun onClick(exp: ExpEntity) {
-                viewModel.setCost(getString(exp.coastResId).toInt())
+                viewModel.setCost(getString(exp.costResId).toInt())
                 findNavController().popBackStack()
             }
         })
