@@ -1,6 +1,5 @@
 package com.example.fafcalculator.app.di
 
-
 import com.example.fafcalculator.core_data.Repository
 import com.example.fafcalculator.core_data.RepositoryImpl
 import dagger.Binds

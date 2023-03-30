@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fafcalculator.app.model.MainState
+import com.example.fafcalculator.app.model.Config
 import com.example.fafcalculator.app.model.Params
+import com.example.fafcalculator.app.model.Result
 import com.example.fafcalculator.app.model.Settings
 import com.example.fafcalculator.core_data.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,18 +18,33 @@ class MainViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    private val _state = MutableLiveData<MainState>()
-    val state: LiveData<MainState> = _state
+    private val _resultState = MutableLiveData<List<Result>>()
+    val resultState: LiveData<List<Result>> = _resultState
+
+    private val _configState = MutableLiveData<Config>()
+    val configState: LiveData<Config> = _configState
 
     init {
         viewModelScope.launch {
             listenCurrentResult()
         }
+
+        viewModelScope.launch {
+            listenCurrentConfig()
+        }
     }
 
     private suspend fun listenCurrentResult() {
-        repository.listenCurrentResult().collect { mainState ->
-            _state.value = mainState
+        repository.getResultFlow().collect { results ->
+            _resultState.value = results
+        }
+    }
+
+    private fun listenCurrentConfig() {
+        viewModelScope.launch {
+            repository.getConfigFlow().collect() {
+                _configState.value = it
+            }
         }
     }
 

@@ -1,16 +1,17 @@
 package com.example.fafcalculator.app.screens.main
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.PopupMenu
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -26,6 +27,7 @@ import com.example.fafcalculator.app.model.Params
 import com.example.fafcalculator.app.model.Settings
 import com.example.fafcalculator.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -46,10 +48,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             imageViewMenu.setOnClickListener {
                 openExp()
             }
-            recyclerViewResult.adapter
         }
         addMenu()
-        observeState()
+        observeConfig()
+        observeResult()
         binding.editTextMassCost.addTextChangedListener(textWatcher)
         binding.editTextMassIncome.addTextChangedListener(textWatcher)
     }
@@ -62,57 +64,51 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-//                return when (menuItem.itemId) {
-//                    R.id.actionSearch -> {
-//                        if (binding.cityTextInput.visibility == View.VISIBLE) {
-//                            binding.cityTextInput.visibility = View.GONE
-//                            hideKeyboardFrom(binding.cityEditText)
-//                        } else {
-//                            binding.cityTextInput.visibility = View.VISIBLE
-//                            showSoftKeyboard(binding.cityEditText)
-//                        }
-//                        true
-//                    }
-//                    R.id.actionLocation -> {
-//                        getWeatherByCoordinates()
-//                        true
-//                    }
-//                    else -> false
-//                }
-               // Toast.makeText(requireContext(), "!!!", Toast.LENGTH_SHORT).show()
                 settingsDialog()
                 return true
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
     }
 
     fun settingsDialog() {
-        val config = viewModel.state.value!!.config
+        val view = layoutInflater.inflate(R.layout.dialog_settings, null)
 
-        val currentIndex = when(config.sacuCost){
-            6450 -> 0
-            5320 -> 1
-            else -> 0
-        }
-        val list = listOf(6450, 5320)
-        val costItems = list
-            .map { "value = $it" }
-            .toTypedArray()
+        val radioButton5320: RadioButton = view.findViewById(R.id.radioButton5320)
+        val radioButton6450: RadioButton = view.findViewById(R.id.radioButton6450)
 
-        val dialog2 = AlertDialog.Builder(requireContext())
-            .setTitle("Sacu mass coast")
-            .setSingleChoiceItems(costItems, currentIndex) { dialog, witch ->
-                dialog.dismiss()
+        viewModel.configState.observe(viewLifecycleOwner) { config ->
+
+            when (config.sacuCost) {
+                5320 -> radioButton5320.isChecked = true
+                6450 -> radioButton6450.isChecked = true
+            }
+            radioButton5320.setOnClickListener {
                 viewModel.saveCurrentSettings(
                     Settings(
                         sacuIncome = config.sacuIncome,
-                        sacuCost = list[witch],
+                        sacuCost = 5320,
                         secMax = config.secMax
                     )
                 )
             }
+
+            radioButton6450.setOnClickListener {
+                viewModel.saveCurrentSettings(
+                    Settings(
+                        sacuIncome = config.sacuIncome,
+                        sacuCost = 6450,
+                        secMax = config.secMax
+                    )
+                )
+            }
+        }
+        val listener = DialogInterface.OnClickListener { _, _ -> }
+        val builder = AlertDialog.Builder(requireContext(), R.style.MyDialogTheme)
+            .setPositiveButton(R.string.ok, listener)
             .create()
-        dialog2.show()
+        builder.setView(view)
+        builder.show()
     }
 
     private val textWatcher = object : TextWatcher {
@@ -124,8 +120,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 if (binding.editTextMassIncome.text.toString()
                         .toInt() > 0 && binding.editTextMassCost.text.toString().toInt() > 0
                 )
-                    if (binding.editTextMassIncome.text.toString() != viewModel.state.value!!.config.massIncome.toString()
-                        || binding.editTextMassCost.text.toString() != viewModel.state.value!!.config.massCost.toString()
+                    if (binding.editTextMassIncome.text.toString() != viewModel.configState.value!!.massIncome.toString()
+                        || binding.editTextMassCost.text.toString() != viewModel.configState.value!!.massCost.toString()
                     ) {
                         viewModel.saveCurrentParams(
                             Params(
@@ -138,22 +134,28 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
-    private fun observeState() {
-        viewModel.state.observe(viewLifecycleOwner) { state ->
+    private fun observeResult() {
+        viewModel.resultState.observe(viewLifecycleOwner) { state ->
+            adapter.resultList = state
+        }
+    }
 
-            adapter.resultList = state.resultList
-            binding.imageViewMenu.setImageResource(Exp.findImageByCoast(state.config.massCost))
+    private fun observeConfig() {
+        viewModel.configState.observe(viewLifecycleOwner) { config ->
+            binding.imageViewMenu.setImageResource(Exp.findImageByCoast(config.massCost))
 
-            if (binding.editTextMassIncome.text.toString() != state.config.massIncome.toString()
-                || binding.editTextMassCost.text.toString() != state.config.massCost.toString()
+            if (binding.editTextMassIncome.text.toString() != config.massIncome.toString()
+                || binding.editTextMassCost.text.toString() != config.massCost.toString()
             ) {
-                binding.editTextMassCost.setText(state.config.massCost.toString())
-                binding.editTextMassIncome.setText(state.config.massIncome.toString())
+                binding.editTextMassCost.setText(config.massCost.toString())
+                binding.editTextMassIncome.setText(config.massIncome.toString())
             }
         }
     }
 
+
     private fun openExp() {
+        activity?.let { hideKeyboardFrom(view) }
         findNavController().navigate(R.id.action_mainFragment_to_expFragment)
     }
 

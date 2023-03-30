@@ -37,7 +37,7 @@ enum class Exp(
     companion object {
         fun findImageByCoast(coast: Int): Int {
             for (exp in Exp.values()) {
-                if (exp.toString().equals("COAST_$coast", true))
+                if (exp.toString().equals("COST_$coast", true))
                     return exp.iconResId
             }
             return R.drawable.mass
