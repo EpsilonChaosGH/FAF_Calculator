@@ -16,10 +16,15 @@ import kotlin.math.roundToInt
 class RepositoryImpl @Inject constructor(
     private val appDatabase: AppDatabase,
 ) : Repository {
-    override suspend fun listenCurrentResult(): Flow<MainState> {
+    override suspend fun getResultFlow(): Flow<List<Result>> {
         return appDatabase.configDao().getConfigFlow(Const.KEY_CONFIG).map {
-            val config = it.toConfig()
-            MainState(resultList = getResult(config), config = config)
+            getResult(it.toConfig())
+        }
+    }
+
+    override suspend fun getConfigFlow(): Flow<Config> {
+        return appDatabase.configDao().getConfigFlow(Const.KEY_CONFIG).map {
+            it.toConfig()
         }
     }
 
@@ -34,12 +39,14 @@ class RepositoryImpl @Inject constructor(
     }
 
     override suspend fun setCurrentSettings(settings: Settings) {
-        appDatabase.configDao().updateSettings(UpdateSettingsTuple(
-            keyConfig = Const.KEY_CONFIG,
-            sacuIncome = settings.sacuIncome,
-            sacuCost = settings.sacuCost,
-            secMax = settings.secMax
-        ))
+        appDatabase.configDao().updateSettings(
+            UpdateSettingsTuple(
+                keyConfig = Const.KEY_CONFIG,
+                sacuIncome = settings.sacuIncome,
+                sacuCost = settings.sacuCost,
+                secMax = settings.secMax
+            )
+        )
     }
 
     override suspend fun setCost(cost: Int) {

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">FAF Calculator</string>
 
+    <string name="ok">OK</string>
     <string name="settings">Settings</string>
 
     <string name="paragon_cost">250200</string>
@@ -65,5 +66,8 @@
     <string name="mass">MASS</string>
     <string name="sacu">SACU</string>
     <string name="time">TIME</string>
+    <string name="_5320">5320</string>
+    <string name="_6450">6450</string>
+    <string name="sacu_cost">Sacu cost:</string>
 
 </resources>

@@ -14,6 +14,10 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/blue_uef</item>
+    </style>
+
     <style name="TitleTextView">
         <item name="android:textColor">@color/blue_uef</item>
         <item name="android:layout_width">wrap_content</item>
