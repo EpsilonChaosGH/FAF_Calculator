@@ -36,7 +36,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="match_parent"
-                app:srcCompat="@drawable/mass" />
+                app:srcCompat="@drawable/mass_icon" />
 
             <TextView
                 android:id="@+id/resultViewMassIncome"

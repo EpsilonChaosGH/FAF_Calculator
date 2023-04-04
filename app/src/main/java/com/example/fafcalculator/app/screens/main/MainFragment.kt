@@ -5,7 +5,6 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -37,7 +36,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private val binding by viewBinding(FragmentMainBinding::bind)
 
     private val adapter by lazy(mode = LazyThreadSafetyMode.NONE) { MainAdapter() }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -152,7 +150,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
         }
     }
-
 
     private fun openExp() {
         activity?.let { hideKeyboardFrom(view) }

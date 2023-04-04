@@ -35,12 +35,12 @@ enum class Exp(
     COST_26500(R.drawable.ythotha, R.string.ythotha_cost, R.string.ythotha, R.color.yellow_seraphim);
 
     companion object {
-        fun findImageByCoast(coast: Int): Int {
+        fun findImageByCoast(cost: Int): Int {
             for (exp in Exp.values()) {
-                if (exp.toString().equals("COST_$coast", true))
+                if (exp.toString().equals("COST_$cost", true))
                     return exp.iconResId
             }
-            return R.drawable.mass
+            return R.drawable.mass_icon
         }
 
         fun getList(): List<ExpEntity> {
