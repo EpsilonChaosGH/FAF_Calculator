@@ -62,5 +62,4 @@
                 android:text="@string/time" />
         </LinearLayout>
     </LinearLayout>
-
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,7 +1,6 @@
 package com.example.fafcalculator.core_data
 
 import com.example.fafcalculator.app.model.Config
-import com.example.fafcalculator.app.model.MainState
 import com.example.fafcalculator.app.model.Params
 import com.example.fafcalculator.app.model.Result
 import com.example.fafcalculator.app.model.Settings

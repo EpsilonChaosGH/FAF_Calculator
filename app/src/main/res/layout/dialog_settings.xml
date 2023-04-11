@@ -61,6 +61,4 @@
             android:drawablePadding="8dp"
             android:text="@string/_6450" />
     </RadioGroup>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
