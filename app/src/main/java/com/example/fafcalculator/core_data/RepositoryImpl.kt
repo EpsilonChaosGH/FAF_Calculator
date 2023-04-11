@@ -69,19 +69,19 @@ class RepositoryImpl @Inject constructor(
         var sacu = 0
         val sacuCost = config.sacuCost //6450-5320
         val sacuIncome = config.sacuIncome
-        var bestResult = 0
+        var bestResultIndex = 0
 
         fun toMinutes(): Float {
             return ((((sec + (massCost / massIncome)) / 60.0f)) * 100.0f).roundToInt() / 100.0f
         }
 
-        var best = toMinutes()
+        var bestResult = toMinutes()
 
         fun resultAll(sacu: Int, massIncome: Int) {
             resultList.add(sacu, Result(sacu, massIncome, toMinutes(), false))
-            if (toMinutes() < best) {
-                best = toMinutes()
-                bestResult = sacu
+            if (toMinutes() < bestResult) {
+                bestResult = toMinutes()
+                bestResultIndex = sacu
             }
         }
 
@@ -98,8 +98,7 @@ class RepositoryImpl @Inject constructor(
             }
         }
 
-        resultList[bestResult].best = true
+        resultList[bestResultIndex].best = true
         return resultList
-
     }
 }

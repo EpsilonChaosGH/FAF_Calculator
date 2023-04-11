@@ -53,9 +53,9 @@
             android:id="@+id/imageViewMenu"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_gravity="center"
             android:background="@drawable/background_edittext"
             android:foregroundGravity="center"
             android:src="@drawable/ahwassa" />
@@ -65,7 +65,5 @@
             style="@style/EditText"
             android:layout_weight="1"
             android:hint="@string/income" />
-
     </LinearLayout>
-
 </androidx.appcompat.widget.LinearLayoutCompat>
