@@ -64,23 +64,23 @@ class RepositoryImpl @Inject constructor(
         val massCost = config.massCost
         var massIncome = config.massIncome
         var massCurrent = 0
-        var sec = 0.0f
-        val secMax = config.secMax
+        var sec = 0
+        val secMax = config.secMax //1200
         var sacu = 0
         val sacuCost = config.sacuCost //6450-5320
         val sacuIncome = config.sacuIncome
         var bestResultIndex = 0
 
-        fun toMinutes(): Float {
-            return ((((sec + (massCost / massIncome)) / 60.0f)) * 100.0f).roundToInt() / 100.0f
+        fun currentTime(): Int {
+            return sec + (massCost / massIncome)
         }
 
-        var bestResult = toMinutes()
+        var bestResult = currentTime()
 
         fun resultAll(sacu: Int, massIncome: Int) {
-            resultList.add(sacu, Result(sacu, massIncome, toMinutes(), false))
-            if (toMinutes() < bestResult) {
-                bestResult = toMinutes()
+            resultList.add(sacu, Result(sacu, massIncome, currentTime(), false))
+            if (currentTime() < bestResult) {
+                bestResult = currentTime()
                 bestResultIndex = sacu
             }
         }
