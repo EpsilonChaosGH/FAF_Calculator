@@ -7,8 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.fafcalculator.app.model.Config
 import com.example.fafcalculator.app.model.Params
 import com.example.fafcalculator.app.model.Result
+import com.example.fafcalculator.app.model.ResultState
 import com.example.fafcalculator.app.model.Settings
 import com.example.fafcalculator.core_data.Repository
+import com.example.fafcalculator.core_data.mappers.toResultState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,8 +20,8 @@ class MainViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    private val _resultState = MutableLiveData<List<Result>>()
-    val resultState: LiveData<List<Result>> = _resultState
+    private val _resultState = MutableLiveData<List<ResultState>>()
+    val resultState: LiveData<List<ResultState>> = _resultState
 
     private val _configState = MutableLiveData<Config>()
     val configState: LiveData<Config> = _configState
@@ -36,7 +38,7 @@ class MainViewModel @Inject constructor(
 
     private suspend fun listenCurrentResult() {
         repository.getResultFlow().collect { results ->
-            _resultState.value = results
+            _resultState.value = results.map { it.toResultState() }
         }
     }
 
