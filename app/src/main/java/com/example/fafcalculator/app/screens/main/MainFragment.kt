@@ -21,7 +21,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.fafcalculator.R
-import com.example.fafcalculator.app.model.Exp
+import com.example.fafcalculator.app.model.ExpState
 import com.example.fafcalculator.app.model.Params
 import com.example.fafcalculator.app.model.Settings
 import com.example.fafcalculator.databinding.FragmentMainBinding
@@ -140,7 +140,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private fun observeConfig() {
         viewModel.configState.observe(viewLifecycleOwner) { config ->
-            binding.imageViewMenu.setImageResource(Exp.findImageByCoast(config.massCost))
+            binding.imageViewMenu.setImageResource(ExpState.findImageByCoast(config.massCost))
 
             if (binding.editTextMassIncome.text.toString() != config.massIncome.toString()
                 || binding.editTextMassCost.text.toString() != config.massCost.toString()

@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.math.roundToInt
 
 @Singleton
 class RepositoryImpl @Inject constructor(
@@ -98,7 +97,7 @@ class RepositoryImpl @Inject constructor(
             }
         }
 
-        resultList[bestResultIndex].best = true
+        resultList[bestResultIndex] = resultList[bestResultIndex].copy(best = true)
         return resultList
     }
 }

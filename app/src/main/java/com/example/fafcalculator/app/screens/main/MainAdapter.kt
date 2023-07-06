@@ -1,25 +1,55 @@
 package com.example.fafcalculator.app.screens.main
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fafcalculator.R
-import com.example.fafcalculator.app.model.Result
+import com.example.fafcalculator.app.model.ResultState
 import com.example.fafcalculator.databinding.ResultItemBinding
-import java.text.SimpleDateFormat
-import java.util.*
+
+class MainDiffCallback(
+    private val oldList: List<ResultState>,
+    private val newList: List<ResultState>
+) : DiffUtil.Callback() {
+    override fun getOldListSize() = oldList.size
+
+    override fun getNewListSize() = newList.size
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return oldList[oldItemPosition].sacu == newList[newItemPosition].sacu
+    }
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return oldList[oldItemPosition] == newList[newItemPosition]
+    }
+}
 
 class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
     class MainViewHolder(
-        val binding: ResultItemBinding
-    ) : RecyclerView.ViewHolder(binding.root)
+        private val binding: ResultItemBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun onBind(result: ResultState) = with(binding) {
+            resultViewSacu.text = result.sacu
+            resultViewMassIncome.text = result.massIncome
+            resultViewTime.text = result.time
 
-    var resultList = listOf<Result>()
-        @SuppressLint("NotifyDataSetChanged")
+            if (result.best) {
+                resultItem.setBackgroundResource(R.color.green_aeon)
+                timeImageView.setImageResource(R.drawable.ic_star)
+            } else {
+                resultItem.setBackgroundResource(R.color.trans)
+                timeImageView.setImageResource(R.drawable.ic_time)
+            }
+        }
+    }
+
+    var resultList = listOf<ResultState>()
         set(value) {
+            val diffCallback = MainDiffCallback(field, value)
+            val diffResult = DiffUtil.calculateDiff(diffCallback)
             field = value
-            notifyDataSetChanged()
+            diffResult.dispatchUpdatesTo(this)
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -30,30 +60,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        val result = resultList[position]
-
-        holder.binding.resultViewSacu.text = result.sacu.toString()
-        holder.binding.resultViewMassIncome.text = result.massIncome.toString()
-        holder.binding.resultViewTime.text = secToDataFormat(result.time.toLong())
-
-        if (result.best) {
-            holder.binding.resultItem.setBackgroundResource(R.color.green_aeon)
-            holder.binding.timeImageView.setImageResource(R.drawable.ic_star)
-        } else {
-            holder.binding.resultItem.setBackgroundResource(R.color.trans)
-            holder.binding.timeImageView.setImageResource(R.drawable.ic_time)
-        }
-    }
-
-    private fun secToDataFormat(sec: Long): String {
-        return when (sec) {
-            in 0..3600 -> SimpleDateFormat("mm:ss", Locale.getDefault()).format(sec * 1000)
-            in 3600..Long.MAX_VALUE -> SimpleDateFormat(
-                "hh:mm:ss:",
-                Locale.getDefault()
-            ).format(sec * 1000)
-            else -> "..."
-        }
+        holder.onBind(resultList[position])
     }
 
     override fun getItemCount() = resultList.size

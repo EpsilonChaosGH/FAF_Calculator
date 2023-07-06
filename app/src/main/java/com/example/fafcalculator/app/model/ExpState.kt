@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.example.fafcalculator.R
 
-enum class Exp(
+enum class ExpState(
     @DrawableRes val iconResId: Int,
     @StringRes val costResId: Int,
     @StringRes val titleResId: Int,
@@ -36,7 +36,7 @@ enum class Exp(
 
     companion object {
         fun findImageByCoast(cost: Int): Int {
-            for (exp in Exp.values()) {
+            for (exp in ExpState.values()) {
                 if (exp.toString().equals("COST_$cost", true))
                     return exp.iconResId
             }
@@ -45,7 +45,7 @@ enum class Exp(
 
         fun getList(): List<ExpEntity> {
             val list = mutableListOf<ExpEntity>()
-            enumValues<Exp>().forEach {
+            enumValues<ExpState>().forEach {
                 list.add(
                     ExpEntity(
                         it.iconResId,

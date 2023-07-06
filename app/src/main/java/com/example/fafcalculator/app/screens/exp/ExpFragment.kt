@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.fafcalculator.R
-import com.example.fafcalculator.app.model.Exp
+import com.example.fafcalculator.app.model.ExpState
 import com.example.fafcalculator.app.model.ExpEntity
 import com.example.fafcalculator.databinding.FragmentExpBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +34,7 @@ class ExpFragment : Fragment(R.layout.fragment_exp) {
         super.onViewCreated(view, savedInstanceState)
 
         setupLayoutManager(binding, adapter)
-        adapter.expList = Exp.getList()
+        adapter.expList = ExpState.getList()
     }
 
     private fun setupLayoutManager(binding: FragmentExpBinding, adapter: ExpAdapter) {
