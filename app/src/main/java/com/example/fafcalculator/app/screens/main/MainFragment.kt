@@ -21,6 +21,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.fafcalculator.R
+import com.example.fafcalculator.app.collectFlow
+import com.example.fafcalculator.app.model.Const
 import com.example.fafcalculator.app.model.ExpState
 import com.example.fafcalculator.app.model.Params
 import com.example.fafcalculator.app.model.Settings
@@ -75,17 +77,18 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         val radioButton5320: RadioButton = view.findViewById(R.id.radioButton5320)
         val radioButton6450: RadioButton = view.findViewById(R.id.radioButton6450)
 
-        viewModel.configState.observe(viewLifecycleOwner) { config ->
+
+        collectFlow(viewModel.configState) { config ->
 
             when (config.sacuCost) {
-                5320 -> radioButton5320.isChecked = true
-                6450 -> radioButton6450.isChecked = true
+                Const.MASS_5320 -> radioButton5320.isChecked = true
+                Const.MASS_6450 -> radioButton6450.isChecked = true
             }
             radioButton5320.setOnClickListener {
                 viewModel.saveCurrentSettings(
                     Settings(
                         sacuIncome = config.sacuIncome,
-                        sacuCost = 5320,
+                        sacuCost = Const.MASS_5320,
                         secMax = config.secMax
                     )
                 )
@@ -95,7 +98,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 viewModel.saveCurrentSettings(
                     Settings(
                         sacuIncome = config.sacuIncome,
-                        sacuCost = 6450,
+                        sacuCost = Const.MASS_6450,
                         secMax = config.secMax
                     )
                 )
@@ -133,13 +136,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun observeResult() {
-        viewModel.resultState.observe(viewLifecycleOwner) { state ->
+        collectFlow(viewModel.resultState) { state ->
             adapter.resultList = state
         }
     }
 
     private fun observeConfig() {
-        viewModel.configState.observe(viewLifecycleOwner) { config ->
+        collectFlow(viewModel.configState) { config ->
             binding.imageViewMenu.setImageResource(ExpState.findImageByCoast(config.massCost))
 
             if (binding.editTextMassIncome.text.toString() != config.massIncome.toString()

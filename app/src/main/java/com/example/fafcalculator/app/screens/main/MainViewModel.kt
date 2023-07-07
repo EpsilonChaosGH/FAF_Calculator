@@ -1,17 +1,17 @@
 package com.example.fafcalculator.app.screens.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fafcalculator.app.model.Config
 import com.example.fafcalculator.app.model.Params
-import com.example.fafcalculator.app.model.Result
 import com.example.fafcalculator.app.model.ResultState
 import com.example.fafcalculator.app.model.Settings
 import com.example.fafcalculator.core_data.Repository
 import com.example.fafcalculator.core_data.mappers.toResultState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,11 +20,11 @@ class MainViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    private val _resultState = MutableLiveData<List<ResultState>>()
-    val resultState: LiveData<List<ResultState>> = _resultState
+    private val _resultState = MutableStateFlow<List<ResultState>?>(null)
+    val resultState: StateFlow<List<ResultState>?> = _resultState.asStateFlow()
 
-    private val _configState = MutableLiveData<Config>()
-    val configState: LiveData<Config> = _configState
+    private val _configState = MutableStateFlow<Config?>(null)
+    val configState: StateFlow<Config?> = _configState.asStateFlow()
 
     init {
         viewModelScope.launch {
