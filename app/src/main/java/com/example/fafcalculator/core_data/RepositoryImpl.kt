@@ -3,11 +3,14 @@ package com.example.fafcalculator.core_data
 import com.example.fafcalculator.app.model.*
 import com.example.fafcalculator.core_data.mappers.toConfig
 import com.example.fafcalculator.core_db.AppDatabase
+import com.example.fafcalculator.core_db.entity.ConfigDbEntity
 import com.example.fafcalculator.core_db.entity.UpdateCostTuple
 import com.example.fafcalculator.core_db.entity.UpdateParamsTuple
 import com.example.fafcalculator.core_db.entity.UpdateSettingsTuple
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -37,7 +40,7 @@ class RepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun setCurrentSettings(settings: Settings) {
+    override suspend fun setCurrentSettings(settings: Settings) = withContext(Dispatchers.IO) {
         appDatabase.configDao().updateSettings(
             UpdateSettingsTuple(
                 keyConfig = Const.KEY_CONFIG,
@@ -66,7 +69,7 @@ class RepositoryImpl @Inject constructor(
         var sec = 0
         val secMax = config.secMax //1200
         var sacu = 0
-        val sacuCost = config.sacuCost //6450-5320
+        val sacuCost = config.sacuCost.mass //6450-5320
         val sacuIncome = config.sacuIncome
         var bestResultIndex = 0
 

@@ -7,6 +7,11 @@ import com.example.internal.Versions
 object Other {
 
     /**
+     * [Kotlinx serialization](https://kotlinlang.org/docs/serialization.html)
+     */
+    const val kotlinx_serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinx_serialization}"
+
+    /**
      * [Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
      */
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"

@@ -1,5 +1,6 @@
 package com.example.fafcalculator.app.screens.main
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fafcalculator.app.model.Config
