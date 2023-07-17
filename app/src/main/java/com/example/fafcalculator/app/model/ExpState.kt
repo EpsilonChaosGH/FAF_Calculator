@@ -44,18 +44,14 @@ enum class ExpState(
         }
 
         fun getList(): List<ExpEntity> {
-            val list = mutableListOf<ExpEntity>()
-            enumValues<ExpState>().forEach {
-                list.add(
-                    ExpEntity(
-                        it.iconResId,
-                        it.costResId,
-                        it.titleResId,
-                        it.factionColorResId
-                    )
+            return enumValues<ExpState>().map {
+                ExpEntity(
+                    it.iconResId,
+                    it.costResId,
+                    it.titleResId,
+                    it.factionColorResId
                 )
-            }
-            return list
+            }.toList()
         }
     }
 }

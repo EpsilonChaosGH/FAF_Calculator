@@ -23,6 +23,7 @@ object Versions {
 
     // other
     const val coroutines = "1.7.1"
+    const val kotlinx_serialization = "1.5.1"
     const val material = "1.9.0"
     const val viewBindingPropDel = "1.4.4"
     const val viewBindingPropDelNoRef = "1.4.6"

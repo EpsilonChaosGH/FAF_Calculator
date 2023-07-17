@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "eb608cdeb1cc15cf2637bc54396c6e1c",
+    "identityHash": "b52d36e3b1be98d282addcd55bc9e66c",
     "entities": [
       {
         "tableName": "config",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key_config` TEXT NOT NULL, `mass_cost` INTEGER NOT NULL, `mass_income` INTEGER NOT NULL, `sacu_income` INTEGER NOT NULL, `sacu_cost` INTEGER NOT NULL, `sec_max` INTEGER NOT NULL, PRIMARY KEY(`key_config`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key_config` TEXT NOT NULL, `mass_cost` INTEGER NOT NULL, `mass_income` INTEGER NOT NULL, `sacu_income` INTEGER NOT NULL, `sacu_cost` TEXT NOT NULL, `sec_max` INTEGER NOT NULL, PRIMARY KEY(`key_config`))",
         "fields": [
           {
             "fieldPath": "keyConfig",
@@ -35,7 +35,7 @@
           {
             "fieldPath": "sacuCost",
             "columnName": "sacu_cost",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -46,10 +46,10 @@
           }
         ],
         "primaryKey": {
+          "autoGenerate": false,
           "columnNames": [
             "key_config"
-          ],
-          "autoGenerate": false
+          ]
         },
         "indices": [],
         "foreignKeys": []
@@ -58,7 +58,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'eb608cdeb1cc15cf2637bc54396c6e1c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b52d36e3b1be98d282addcd55bc9e66c')"
     ]
   }
 }

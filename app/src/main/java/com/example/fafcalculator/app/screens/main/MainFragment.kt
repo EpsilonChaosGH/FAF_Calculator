@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -25,6 +26,7 @@ import com.example.fafcalculator.app.collectFlow
 import com.example.fafcalculator.app.model.Const
 import com.example.fafcalculator.app.model.ExpState
 import com.example.fafcalculator.app.model.Params
+import com.example.fafcalculator.app.model.SacuCost
 import com.example.fafcalculator.app.model.Settings
 import com.example.fafcalculator.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,6 +51,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 openExp()
             }
         }
+//        viewModel.saveCurrentSettings(
+//            Settings(
+//                sacuIncome = 11,
+//                sacuCost = SacuCost.MASS_6450,
+//                secMax = 1200
+//            )
+//        )
         addMenu()
         observeConfig()
         observeResult()
@@ -81,14 +90,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         collectFlow(viewModel.configState) { config ->
 
             when (config.sacuCost) {
-                Const.MASS_5320 -> radioButton5320.isChecked = true
-                Const.MASS_6450 -> radioButton6450.isChecked = true
+                SacuCost.MASS_5320 -> radioButton5320.isChecked = true
+                SacuCost.MASS_6450 -> radioButton6450.isChecked = true
             }
             radioButton5320.setOnClickListener {
                 viewModel.saveCurrentSettings(
                     Settings(
                         sacuIncome = config.sacuIncome,
-                        sacuCost = Const.MASS_5320,
+                        sacuCost = SacuCost.MASS_5320,
                         secMax = config.secMax
                     )
                 )
@@ -98,7 +107,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 viewModel.saveCurrentSettings(
                     Settings(
                         sacuIncome = config.sacuIncome,
-                        sacuCost = Const.MASS_6450,
+                        sacuCost = SacuCost.MASS_6450,
                         secMax = config.secMax
                     )
                 )
