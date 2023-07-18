@@ -5,7 +5,6 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -18,12 +17,12 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.fafcalculator.R
 import com.example.fafcalculator.app.collectFlow
-import com.example.fafcalculator.app.model.Const
 import com.example.fafcalculator.app.model.ExpState
 import com.example.fafcalculator.app.model.Params
 import com.example.fafcalculator.app.model.SacuCost
@@ -51,13 +50,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 openExp()
             }
         }
-//        viewModel.saveCurrentSettings(
-//            Settings(
-//                sacuIncome = 11,
-//                sacuCost = SacuCost.MASS_6450,
-//                secMax = 1200
-//            )
-//        )
         addMenu()
         observeConfig()
         observeResult()
@@ -73,52 +65,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                settingsDialog()
+                findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
                 return true
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-    }
-
-    fun settingsDialog() {
-        val view = layoutInflater.inflate(R.layout.dialog_settings, null)
-
-        val radioButton5320: RadioButton = view.findViewById(R.id.radioButton5320)
-        val radioButton6450: RadioButton = view.findViewById(R.id.radioButton6450)
-
-
-        collectFlow(viewModel.configState) { config ->
-
-            when (config.sacuCost) {
-                SacuCost.MASS_5320 -> radioButton5320.isChecked = true
-                SacuCost.MASS_6450 -> radioButton6450.isChecked = true
-            }
-            radioButton5320.setOnClickListener {
-                viewModel.saveCurrentSettings(
-                    Settings(
-                        sacuIncome = config.sacuIncome,
-                        sacuCost = SacuCost.MASS_5320,
-                        secMax = config.secMax
-                    )
-                )
-            }
-
-            radioButton6450.setOnClickListener {
-                viewModel.saveCurrentSettings(
-                    Settings(
-                        sacuIncome = config.sacuIncome,
-                        sacuCost = SacuCost.MASS_6450,
-                        secMax = config.secMax
-                    )
-                )
-            }
-        }
-        val listener = DialogInterface.OnClickListener { _, _ -> }
-        val builder = AlertDialog.Builder(requireContext(), R.style.MyDialogTheme)
-            .setPositiveButton(R.string.ok, listener)
-            .create()
-        builder.setView(view)
-        builder.show()
     }
 
     private val textWatcher = object : TextWatcher {
