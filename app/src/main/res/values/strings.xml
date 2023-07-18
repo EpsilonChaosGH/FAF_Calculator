@@ -68,6 +68,7 @@
     <string name="time">TIME</string>
     <string name="_5320">5320</string>
     <string name="_6450">6450</string>
-    <string name="sacu_cost">Sacu cost:</string>
+    <string name="sacu_cost">SACU COST</string>
+    <string name="sacu_cost_details">The cost of a resources sacu created with a quantum gateway surrounded by t2 mass fabricators and without</string>
 
 </resources>

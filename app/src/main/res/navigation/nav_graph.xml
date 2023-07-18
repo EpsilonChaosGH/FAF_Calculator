@@ -8,15 +8,23 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.fafcalculator.app.screens.main.MainFragment"
-        android:label="main"
+        android:label="Main"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_expFragment"
             app:destination="@id/expFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/expFragment"
         android:name="com.example.fafcalculator.app.screens.exp.ExpFragment"
-        android:label="exp"
+        android:label="Exp"
         tools:layout="@layout/fragment_exp" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.fafcalculator.app.screens.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings"/>
 </navigation>
